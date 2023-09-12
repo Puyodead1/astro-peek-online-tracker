@@ -1,0 +1,6 @@
+node_modules/
+.env
+*.db
+dist/
+tokens.json
+google_oauth_keys.json
