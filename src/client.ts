@@ -12,7 +12,6 @@ export default class CustomClient extends Client {
     }
 
     public async start(token: string): Promise<void> {
-        await this.login(token);
         await this.doc.loadInfo();
 
         // check if theres a sheet with the name "test"
@@ -21,6 +20,8 @@ export default class CustomClient extends Client {
             console.info("Creating sheet");
             await this.doc.addSheet({ title: "Astro", headerValues: ["time", "count"] });
         }
+
+        await this.login(token);
     }
 
     public async insert(count: number) {
