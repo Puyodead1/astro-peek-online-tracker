@@ -78,7 +78,16 @@ async function main() {
     oAuth2Client.on("tokens", (tokens) => {
         // save to json file
         console.info("Saving updated tokens");
-        fs.writeFileSync("tokens.json", JSON.stringify(tokens));
+        // write updated access token
+        const currentTokens = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
+        fs.writeFileSync(
+            "tokens.json",
+            JSON.stringify({
+                ...currentTokens,
+                access_token: tokens.access_token,
+                refresh_token: tokens.refresh_token ?? currentTokens.refresh_token,
+            })
+        );
     });
 
     const client = new CustomClient(oAuth2Client);
