@@ -31,7 +31,7 @@ export default class CustomClient extends Client {
 
     public async getOnlineCount(): Promise<number> {
         const guild = await this.guilds.fetch(process.env.GUILD_ID as string);
-        return guild.members.cache.filter((m) => m.presence && m.presence.status === PresenceUpdateStatus.Online).size;
+        return guild.members.cache.filter((m) => m.presence && m.presence.status !== PresenceUpdateStatus.Offline).size;
     }
 
     public async collectMetric() {
